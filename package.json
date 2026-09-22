@@ -1,0 +1,61 @@
+{
+  "name": "vscode-mario",
+  "displayName": "VS Code Mario",
+  "description": "Mario characters hanging out in your editor.",
+  "version": "0.0.1",
+  "publisher": "your-publisher-id",
+  "private": true,
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:vscode-mario.start"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-mario.start",
+        "title": "Start Mario",
+        "category": "Mario"
+      }
+    ],
+    "configuration": {
+      "title": "Mario",
+      "properties": {
+        "vscode-mario.characterType": {
+          "type": "string",
+          "enum": [
+            "mario",
+            "luigi",
+            "lakitu"
+          ],
+          "enumDescriptions": [
+            "Mario",
+            "Luigi",
+            "Lakitu (floats)"
+          ],
+          "default": "mario",
+          "description": "Which character to spawn."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "vscode:prepublish": "npm run package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "ts-loader": "^9.5.1"
+  }
+}
