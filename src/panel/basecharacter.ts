@@ -1,4 +1,5 @@
-import { CharacterState, CharacterType } from '../common/types';
+import { CharacterDefinition } from '../common/characters';
+import { CharacterState } from '../common/types';
 
 const CHARACTER_WIDTH = 64;
 const WALK_SPEED = 2; // Pixels moved per tick while walking or flying.
@@ -27,8 +28,7 @@ export class Character
 
   constructor(
     private readonly mediaUri: string,
-    private readonly type: CharacterType,
-    private readonly canFly: boolean,
+    private readonly definition: CharacterDefinition,
     container: HTMLElement,
     spawnLeft: number,
     private readonly groundBottom: number,
@@ -111,7 +111,7 @@ export class Character
     this.ticksInState = 0;
     this.ticksUntilDecision = randomDecisionTicks();
 
-    const options = this.canFly
+    const options = this.definition.canFly
       ? [CharacterState.Stand, CharacterState.Walk, CharacterState.Fly]
       : [CharacterState.Stand, CharacterState.Walk];
     this.state = options[Math.floor(Math.random() * options.length)];
@@ -119,12 +119,13 @@ export class Character
     this.updateSprite();
   }
 
-  // Points the <img> at the gif matching the current type, state, and facing direction,
-  // following the media/<type>/<type>_<state>_<direction>.gif naming convention.
+  // Points the <img> at the gif matching the current game, type, state, and facing direction,
+  // following the media/<game>/<type>/<type>-<state>-<direction>.gif naming convention.
   private updateSprite(): void
   {
     const direction = this.facingRight ? 'right' : 'left';
-    this.el.src = `${this.mediaUri}/${this.type}/${this.type}_${this.state}_${direction}.gif`;
+    const { game, type } = this.definition;
+    this.el.src = `${this.mediaUri}/${game}/${type}/${type}-${this.state}-${direction}.gif`;
   }
 
   private updatePosition(): void

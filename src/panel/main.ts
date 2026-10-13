@@ -21,7 +21,7 @@ const mediaUri = window.__marioMediaUri;
 const characterType = (window.__marioCharacterType as CharacterType) ?? CharacterType.Mario;
 const definition = CHARACTERS[characterType] ?? CHARACTERS[CharacterType.Mario];
 
-const character = new Character(mediaUri, definition.type, definition.canFly, stage, 40, GROUND_BOTTOM);
+const character = new Character(mediaUri, definition, stage, 40, GROUND_BOTTOM);
 
 // Drives the character's simulation on a fixed interval instead of requestAnimationFrame,
 // since gif playback already handles the per-frame animation on its own.

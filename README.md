@@ -2,6 +2,8 @@
 
 # VS Code Mario
 
+![icon](/media/marioluigi-ss/mario/mario-walk-right.gif)
+
 Mario characters hanging out in your editor to boost productivity.
 
 </div>
