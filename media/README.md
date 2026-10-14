@@ -6,8 +6,7 @@ is named after its `CharacterType` value (see `src/common/types.ts`).
 Each character needs GIFs named:
 
 ```
-media/<game>/<type>/<type>-stand-right.gif
-media/<game>/<type>/<type>-stand-left.gif
+media/<game>/<type>/<type>-idle-front.gif
 media/<game>/<type>/<type>-walk-right.gif
 media/<game>/<type>/<type>-walk-left.gif
 ```
@@ -23,6 +22,8 @@ Example for Mario: `media/marioluigi-ss/mario/mario-walk-right.gif`.
 
 Raw source sheets can live in `media/<game>/sprite-sheets/`. The extension never loads them.
 
-GIFs should be transparent, pre-cropped to a consistent canvas/anchor point
-(no per-frame jitter), and roughly 64x64px to match `.character` in the
-webview CSS.
+GIFs should be transparent and pre-cropped to a consistent canvas/anchor point
+(no per-frame jitter). The webview scales every GIF to 64px tall and lets the
+width follow the GIF's aspect ratio (see `.character` in the webview CSS), so
+sprites do not need a square canvas. Use a source height that divides 64
+evenly (16, 32, 64) so scaling stays crisp.

@@ -1,7 +1,6 @@
 import { CharacterDefinition } from '../common/characters';
 import { CharacterState } from '../common/types';
 
-const CHARACTER_WIDTH = 64;
 const WALK_SPEED = 2; // Pixels moved per tick while walking or flying.
 const FLY_BOB_SPEED = 1; // Pixels moved up or down per tick while flying.
 
@@ -87,9 +86,11 @@ export class Character
       this.left = 0;
       this.setFacing(true);
     }
-    else if (this.left >= stageWidth - CHARACTER_WIDTH)
+    else if (this.left >= stageWidth - this.el.offsetWidth)
     {
-      this.left = stageWidth - CHARACTER_WIDTH;
+      // The rendered width follows the gif's aspect ratio, and is briefly 0 while a newly
+      // swapped gif is still loading, which just means the clamp is looser for a tick.
+      this.left = stageWidth - this.el.offsetWidth;
       this.setFacing(false);
     }
   }
@@ -125,7 +126,9 @@ export class Character
   {
     const direction = this.facingRight ? 'right' : 'left';
     const { game, type } = this.definition;
-    this.el.src = `${this.mediaUri}/${game}/${type}/${type}-${this.state}-${direction}.gif`;
+    // Standing uses a single front-facing idle gif, so it has no left or right variant.
+    const variant = this.state === CharacterState.Stand ? 'idle-front' : `${this.state}-${direction}`;
+    this.el.src = `${this.mediaUri}/${game}/${type}/${type}-${variant}.gif`;
   }
 
   private updatePosition(): void

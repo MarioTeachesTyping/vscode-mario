@@ -62,7 +62,7 @@ function getWebviewContent(mediaUri: string, scriptUri: string, characterType: s
 <style>
   html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: transparent; }
   #stage { position: relative; width: 100%; height: 100%; }
-  .character { position: absolute; width: 64px; height: 64px; image-rendering: pixelated; }
+  .character { position: absolute; height: 64px; width: auto; image-rendering: pixelated; }
 </style>
 </head>
 <body>
