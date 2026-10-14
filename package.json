@@ -19,10 +19,19 @@
     "commands": [
       {
         "command": "vscode-mario.start",
-        "title": "Start Mario",
+        "title": "Show Mario",
         "category": "Mario"
       }
     ],
+    "views": {
+      "explorer": [
+        {
+          "type": "webview",
+          "id": "vscodeMario.explorerView",
+          "name": "VS Code Mario"
+        }
+      ]
+    },
     "configuration": {
       "title": "Mario",
       "properties": {

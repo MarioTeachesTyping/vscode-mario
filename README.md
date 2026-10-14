@@ -2,7 +2,7 @@
 
 # VS Code Mario
 
-![icon](/media/marioluigi-ss/mario/mario-walk-right.gif)
+![icon](/media/marioluigi-ss/mario/mario-walk-left.gif) ![icon](/media/marioluigi-ss/mario/mario-idle-front.gif) ![icon](/media/marioluigi-ss/mario/mario-walk-right.gif)
 
 Mario characters hanging out in your editor to boost productivity.
 
@@ -23,8 +23,9 @@ npm install
 npm run watch
 ```
 
-Then press `F5` in VS Code to launch an Extension Development Host, and run
-**Mario: Start Mario** from the Command Palette.
+Then press `F5` in VS Code to launch an Extension Development Host. Mario lives in
+the **VS Code Mario** section of the Explorer sidebar, which you can also reveal by running
+**Mario: Show Mario** from the Command Palette.
 
 ## Credits
 

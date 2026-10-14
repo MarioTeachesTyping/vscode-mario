@@ -1,7 +1,7 @@
 import { CharacterDefinition } from '../common/characters';
 import { CharacterState } from '../common/types';
 
-const WALK_SPEED = 2; // Pixels moved per tick while walking or flying.
+const WALK_SPEED = 1; // Pixels moved per tick while walking or flying.
 const FLY_BOB_SPEED = 1; // Pixels moved up or down per tick while flying.
 
 // Picks how many ticks a state should last before the character re-rolls its behavior.

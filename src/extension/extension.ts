@@ -1,54 +1,56 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-let panel: vscode.WebviewPanel | undefined;
+// Must match the view id contributed under "views.explorer" in package.json.
+const VIEW_ID = 'vscodeMario.explorerView';
 
 // Entry point VS Code calls when the extension activates.
 export function activate(context: vscode.ExtensionContext): void
 {
   context.subscriptions.push(
-    vscode.commands.registerCommand('vscode-mario.start', () => showPanel(context)),
+    vscode.window.registerWebviewViewProvider(VIEW_ID, new MarioViewProvider(context.extensionPath),
+    {
+      // Keeps the character's state alive while the Explorer section is collapsed or hidden.
+      webviewOptions: { retainContextWhenHidden: true },
+    }),
+    // VS Code generates a "<view id>.focus" command for every contributed view, which
+    // expands and reveals it, so the command palette entry just reuses that.
+    vscode.commands.registerCommand('vscode-mario.start', () =>
+      vscode.commands.executeCommand(`${VIEW_ID}.focus`),
+    ),
   );
 }
 
-// Opens the webview panel that hosts the character, or focuses it if one is already open.
-function showPanel(context: vscode.ExtensionContext): void
+// Fills the Explorer section with the webview that hosts the character.
+class MarioViewProvider implements vscode.WebviewViewProvider
 {
-  if (panel)
+  constructor(private readonly extensionPath: string)
   {
-    panel.reveal();
-    return;
   }
 
-  panel = vscode.window.createWebviewPanel('vscodeMario', 'Mario', vscode.ViewColumn.Beside,
+  // Called by VS Code the first time the section becomes visible.
+  resolveWebviewView(view: vscode.WebviewView): void
   {
-    enableScripts: true,
-    retainContextWhenHidden: true,
     // Restrict the webview to only load files from these folders, for security.
-    localResourceRoots: [
-      vscode.Uri.file(path.join(context.extensionPath, 'media')),
-      vscode.Uri.file(path.join(context.extensionPath, 'dist')),
-    ],
-  });
-
-  // Convert filesystem paths into URIs the webview's sandboxed context is allowed to load.
-  const mediaUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media')));
-  const scriptUri = panel.webview.asWebviewUri(
-    vscode.Uri.file(path.join(context.extensionPath, 'dist', 'panel.js')),
-  );
-
-  const characterType = vscode.workspace.getConfiguration('vscode-mario').get<string>('characterType', 'mario');
-
-  panel.webview.html = getWebviewContent(mediaUri.toString(), scriptUri.toString(), characterType);
-
-  panel.onDidDispose(
-    () =>
+    view.webview.options =
     {
-      panel = undefined;
-    },
-    null,
-    context.subscriptions,
-  );
+      enableScripts: true,
+      localResourceRoots: [
+        vscode.Uri.file(path.join(this.extensionPath, 'media')),
+        vscode.Uri.file(path.join(this.extensionPath, 'dist')),
+      ],
+    };
+
+    // Convert filesystem paths into URIs the webview's sandboxed context is allowed to load.
+    const mediaUri = view.webview.asWebviewUri(vscode.Uri.file(path.join(this.extensionPath, 'media')));
+    const scriptUri = view.webview.asWebviewUri(
+      vscode.Uri.file(path.join(this.extensionPath, 'dist', 'panel.js')),
+    );
+
+    const characterType = vscode.workspace.getConfiguration('vscode-mario').get<string>('characterType', 'mario');
+
+    view.webview.html = getWebviewContent(mediaUri.toString(), scriptUri.toString(), characterType);
+  }
 }
 
 // Builds the HTML shell for the webview. The media URI and character type are passed in as
@@ -62,7 +64,7 @@ function getWebviewContent(mediaUri: string, scriptUri: string, characterType: s
 <style>
   html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: transparent; }
   #stage { position: relative; width: 100%; height: 100%; }
-  .character { position: absolute; height: 64px; width: auto; image-rendering: pixelated; }
+  .character { position: absolute; height: 32px; width: auto; image-rendering: pixelated; }
 </style>
 </head>
 <body>
