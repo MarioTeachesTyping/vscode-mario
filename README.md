@@ -31,7 +31,7 @@ the **VS Code Mario** section of the Explorer sidebar, which you can also reveal
 
 ## Credits
 
-## Sprites
+### Sprites
 
 - Mario and Luigi Sprites: © Nintendo / AlphaDream, from *Mario & Luigi: Superstar Saga*.
 - The sprites are used for non-commercial, fan project purposes only.
