@@ -33,8 +33,7 @@ the **VS Code Mario** section of the Explorer sidebar, which you can also reveal
 
 ## Sprites
 
-- Mario and Luigi sprites: © Nintendo / AlphaDream, from *Mario & Luigi: Superstar Saga*.
-- The Mario overworld sprite sheet was ripped by A.J. Nitro.
+- Mario and Luigi Sprites: © Nintendo / AlphaDream, from *Mario & Luigi: Superstar Saga*.
 - The sprites are used for non-commercial, fan project purposes only.
 
 ### Acknowledgements
