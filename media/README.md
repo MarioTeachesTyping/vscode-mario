@@ -23,7 +23,8 @@ Example for Mario: `media/marioluigi-ss/mario/mario-walk-right.gif`.
 Raw source sheets can live in `media/<game>/sprite-sheets/`. The extension never loads them.
 
 GIFs should be transparent and pre-cropped to a consistent canvas/anchor point
-(no per-frame jitter). The webview draws every GIF 32px tall and lets the
-width follow the GIF's aspect ratio (see `.character` in the webview CSS), so
-sprites do not need a square canvas. Export GIFs at 1x from Piskel with a 32px
-source height, so they display at native size and stay crisp.
+(no per-frame jitter). The webview draws every GIF at its native pixel size (see `.character` in the
+webview CSS), so a taller character like Luigi (36px) stands taller than Mario
+(32px) and sprites do not need a square canvas. Export GIFs at 1x from Piskel
+so they stay crisp, and keep a character's GIFs the same height and ground
+line so the feet do not jump when the state changes.

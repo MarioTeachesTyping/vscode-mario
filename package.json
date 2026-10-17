@@ -35,20 +35,24 @@
     "configuration": {
       "title": "Mario",
       "properties": {
-        "vscode-mario.characterType": {
-          "type": "string",
-          "enum": [
+        "vscode-mario.characters": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "mario",
+              "luigi"
+            ],
+            "enumDescriptions": [
+              "Mario",
+              "Luigi"
+            ]
+          },
+          "default": [
             "mario",
-            "luigi",
-            "lakitu"
+            "luigi"
           ],
-          "enumDescriptions": [
-            "Mario",
-            "Luigi",
-            "Lakitu (floats)"
-          ],
-          "default": "mario",
-          "description": "Which character to spawn."
+          "description": "Which characters to spawn in the Mario view."
         }
       }
     }

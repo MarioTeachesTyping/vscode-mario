@@ -47,15 +47,15 @@ class MarioViewProvider implements vscode.WebviewViewProvider
       vscode.Uri.file(path.join(this.extensionPath, 'dist', 'panel.js')),
     );
 
-    const characterType = vscode.workspace.getConfiguration('vscode-mario').get<string>('characterType', 'mario');
+    const characterTypes = vscode.workspace.getConfiguration('vscode-mario').get<string[]>('characters', ['mario', 'luigi']);
 
-    view.webview.html = getWebviewContent(mediaUri.toString(), scriptUri.toString(), characterType);
+    view.webview.html = getWebviewContent(mediaUri.toString(), scriptUri.toString(), characterTypes);
   }
 }
 
 // Builds the HTML shell for the webview. The media URI and character type are passed in as
 // globals so panel.js can read them without needing a message round trip on startup.
-function getWebviewContent(mediaUri: string, scriptUri: string, characterType: string): string
+function getWebviewContent(mediaUri: string, scriptUri: string, characterTypes: string[]): string
 {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -64,14 +64,14 @@ function getWebviewContent(mediaUri: string, scriptUri: string, characterType: s
 <style>
   html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: transparent; }
   #stage { position: relative; width: 100%; height: 100%; }
-  .character { position: absolute; height: 32px; width: auto; image-rendering: pixelated; }
+  .character { position: absolute; image-rendering: pixelated; }
 </style>
 </head>
 <body>
 <div id="stage"></div>
 <script>
   window.__marioMediaUri = ${JSON.stringify(mediaUri)};
-  window.__marioCharacterType = ${JSON.stringify(characterType)};
+  window.__marioCharacterTypes = ${JSON.stringify(characterTypes)};
 </script>
 <script src="${scriptUri}"></script>
 </body>

@@ -6,11 +6,13 @@
 
 Mario characters hanging out in your editor to boost productivity.
 
+![video](/media/miscellaneous/vscode-mario.gif)
+
 </div>
 
 ## Status
 
-Early scaffold. Character rendering is a config-selected type (`mario`,
+Character rendering is a config-selected type (`mario`,
 `luigi`, `lakitu`) with three states: `stand`, `walk`, and `fly` (for
 characters that float). No sprites are checked in yet, see
 [`media/README.md`](media/README.md) for the naming convention the code
@@ -29,9 +31,15 @@ the **VS Code Mario** section of the Explorer sidebar, which you can also reveal
 
 ## Credits
 
+## Sprites
+
+- Mario and Luigi sprites: © Nintendo / AlphaDream, from *Mario & Luigi: Superstar Saga*.
+- The Mario overworld sprite sheet was ripped by A.J. Nitro.
+- The sprites are used for non-commercial, fan project purposes only.
+
 ### Acknowledgements
 
-- All sprites are property of their original creator.
+- Original sprite artwork belongs to the respective copyright holders.
 - This repository is a fan project and is not affiliated with Nintendo.
 
 Inspired by
